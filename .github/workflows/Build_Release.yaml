@@ -21,8 +21,6 @@ jobs:
             artifact: linux
           - os: windows-latest
             artifact: windows
-          - os: macos-latest
-            artifact: macos
 
     steps:
       - name: Checkout
@@ -37,18 +35,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Set Python 2.7 for electron-builder
-        if: matrix.os == 'macos-latest'
-        run: echo "PYTHON_PATH=/usr/bin/python2.7" >> $GITHUB_ENV
-        
-      - name: Build (macOS)
-        if: matrix.os == 'macos-latest'
-        run: npm run electron:build-mac
-        env:
-          CSC_IDENTITY_AUTO_DISCOVERY: "false"
-
       - name: Build (Windows / Linux)
-        if: matrix.os != 'macos-latest'
         run: npm run electron:build -- --publish never
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
@@ -99,7 +86,7 @@ jobs:
             - **触发方式**：${{ github.event_name }}
             - **Commit**：`${{ github.sha }}`
 
-            本次发布包含 Windows、macOS、Linux 三平台构建产物。
+            本次发布包含 Windows、Linux 两平台构建产物。
           files: release-files/**/*
           generate_release_notes: false
         env:
