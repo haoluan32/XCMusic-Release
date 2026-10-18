@@ -1,7 +1,7 @@
 const { exec } = require("child_process");
 
 // 查找 Python 路径
-exec("which python", (error, stdout, stderr) => {
+exec("which python2.7", (error, stdout, stderr) => {
   if (error || stderr) {
     console.error(
       "错误：未找到 Python。请确保已安装 Python 并在 PATH 中配置。",
