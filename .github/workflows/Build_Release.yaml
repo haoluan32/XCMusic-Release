@@ -37,6 +37,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set Python 2.7 for electron-builder
+        if: matrix.os == 'macos-latest'
+        run: echo "PYTHON_PATH=/usr/bin/python2.7" >> $GITHUB_ENV
+        
       - name: Build (macOS)
         if: matrix.os == 'macos-latest'
         run: npm run electron:build-mac
